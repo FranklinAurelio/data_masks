@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Alamofire
 
 class ViewController: UIViewController {
     
@@ -39,7 +39,15 @@ class ViewController: UIViewController {
       
         // Do any additional setup after loading the view.
     }
+    
+    
+    @IBAction func textFieldCEPChange(_ sender: UITextField) {
+        AF.request("https://viacep.com.br/ws/04101300/json/", method: .get ).validate().response{
+            response in debugPrint(response)
+        }
 
+    }
+    
 
 }
 

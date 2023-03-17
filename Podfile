@@ -7,4 +7,5 @@ target 'ticket_swift' do
 
   # Pods for ticket_swift
   pod 'CPF-CNPJ-Validator'
+  pod 'Alamofire'
 end
