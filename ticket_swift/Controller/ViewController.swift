@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Alamofire
+
 
 class ViewController: UIViewController {
     
@@ -42,8 +42,11 @@ class ViewController: UIViewController {
     
     
     @IBAction func textFieldCEPChange(_ sender: UITextField) {
-        AF.request("https://viacep.com.br/ws/04101300/json/", method: .get ).validate().response{
-            response in debugPrint(response)
+        guard let cep = sender.text else { return  }
+        LocalizationResponseApi().responseViaCepApi(cep: cep) { localization in
+            print(localization)
+        } fail: { error in
+            print(error)
         }
 
     }
