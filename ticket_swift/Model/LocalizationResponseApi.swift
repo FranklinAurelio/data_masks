@@ -23,7 +23,7 @@ class LocalizationResponseApi: NSObject {
                     print("sucesso")
                 }else{
                     print("here")
-                    print (response.data as Any)
+                    //print (response.response?.value(forKeyPath: <#T##String#>))
                 
                 }
                 break
