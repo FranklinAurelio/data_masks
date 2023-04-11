@@ -8,7 +8,7 @@
 import UIKit
 
 
-class ViewController: UIViewController, PickerViewSelectedMouth, PickerViewSelectedYear {
+class ViewController: UIViewController, PickerViewSelectedMouth, PickerViewSelectedYear , PickerViewSelectedInstallment {
     
     // MARK: - Outlets
     
@@ -18,8 +18,12 @@ class ViewController: UIViewController, PickerViewSelectedMouth, PickerViewSelec
     
     @IBOutlet weak var mainScrollView: UIScrollView!
     
+    @IBOutlet weak var labelInstallments: UILabel!
+    
     var pikerViewMes = PickerViewMes()
     var pikerViewYear = PickerViewYear()
+    var pikerViewInstallment = PickerViewInstallments()
+    var totalValue : Double = 199.00
     
     // MARK: - IBActions
     
@@ -44,6 +48,9 @@ class ViewController: UIViewController, PickerViewSelectedMouth, PickerViewSelec
         NotificationCenter.default.addObserver(self, selector: #selector(expandedScrollView(notification: )), name: UIWindow.keyboardWillShowNotification, object: nil)
         pikerViewYear.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(expandedScrollView(notification: )), name: UIWindow.keyboardWillShowNotification, object: nil)
+        pikerViewInstallment.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(expandedScrollView(notification: )), name: UIWindow.keyboardWillShowNotification, object: nil)
+
       
         // Do any additional setup after loading the view.
     }
@@ -71,6 +78,16 @@ class ViewController: UIViewController, PickerViewSelectedMouth, PickerViewSelec
     func pickerYear(year: String) {
         self.searchTextField(tipoTextField: .yearValidade) { textFieldyear in
             textFieldyear.text = year
+        }
+    }
+    
+    func pickerInstallment(installment: String) {
+        self.searchTextField(tipoTextField: .installments) { textFieldinstallment in
+            textFieldinstallment.text = "\(installment)x"
+            
+            let calculo  = "\(totalValue/(Double(installment)!))"
+            self.labelInstallments.text = String(format: "%@x R$%@ (ou 199 a vista)", installment,calculo)
+            
         }
     }
     
@@ -115,6 +132,15 @@ class ViewController: UIViewController, PickerViewSelectedMouth, PickerViewSelec
                 textFieldCvv.text = String(text)
             }
         }
+    }
+    
+    
+    @IBAction func textFieldsInstalments(_ sender: UITextField) {
+        let  pikerView = UIPickerView()
+        pikerView.delegate = pikerViewInstallment
+        pikerView.dataSource = pikerViewInstallment
+        
+        sender.inputView = pikerView
     }
 }
 

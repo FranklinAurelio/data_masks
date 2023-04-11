@@ -25,12 +25,24 @@ class PickerViewMes: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "0\(row + 1)"
+        if row < 9{
+            return "0\(row + 1)"
+        }
+        else{
+            return "\(row + 1)"
+        }
+ 
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if delegate != nil{
-            delegate?.pickerMouth(mes: "0\(row + 1)")
+            if row < 9{
+                delegate?.pickerMouth(mes: "0\(row + 1)")
+            }
+            else{
+                delegate?.pickerMouth(mes: "\(row + 1)")
+            }
+            
         }
     }
 
